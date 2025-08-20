@@ -11,7 +11,7 @@
   - `Amount` → transaction amount  
   - `Class` → target label (1 = fraud, 0 = non-fraud)  
 
-Because of the imbalance, **AUPRC (Area Under Precision-Recall Curve)** is more meaningful than accuracy. I dont really do anything like Swote or maybe GAN to generate syntethic data because i want to see the real perfomance of the model.
+Because of the imbalance, **AUPRC (Area Under Precision-Recall Curve)** is more meaningful than accuracy. I dont really do any method to generate syntethic data like Swote or maybe GAN, because I want to see the real perfomance of the model.
 
 ---
 
