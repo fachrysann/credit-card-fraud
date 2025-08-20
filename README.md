@@ -40,7 +40,6 @@ Evaluation on the entire original dataset:
 - **Total samples** : 283,718  
 - **Correct predictions** : 283,698  
 - **Incorrect predictions** : 20  
-- **Accuracy** : 0.9999  
 
 ### Confusion Matrix Breakdown
 - **True Negatives (TN)** : 283,239 → correctly classified non-fraud  
