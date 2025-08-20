@@ -56,7 +56,3 @@ Evaluation on the entire original dataset:
 - **14 false negatives** → focus for future improvement, since every missed fraud = potential financial loss.  
 
 ---
-
-## Conclusion
-- **XGBoost slightly outperformed CatBoost** (0.894 vs 0.888 AUPRC).  
-- Accuracy alone is misleading in imbalanced data, but confusion matrix shows the model is highly effective.  
