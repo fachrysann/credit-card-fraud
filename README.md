@@ -1,4 +1,5 @@
 # Credit Card Fraud Detection
+![Fraud Detection](content/Eras-Post-Web.png)
 
 ## About the Dataset
 - Source: [Kaggle - Credit Card Fraud Detection](https://www.kaggle.com/mlg-ulb/creditcardfraud)  
