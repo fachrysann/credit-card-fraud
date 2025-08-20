@@ -1,173 +1,84 @@
-🛡️ Credit Card Fraud Detection
-📌 About the Dataset
+About the Dataset
 
-Sumber: Kaggle - Credit Card Fraud Detection
+Source: Kaggle - Credit Card Fraud Detection
 
-Transaksi kartu kredit di Eropa, September 2013.
+Transactions made by European cardholders (September 2013).
 
-Periode 2 hari, total 284,807 transaksi dengan 492 kasus fraud.
+2-day period, 284,807 transactions with 492 frauds (~0.172%).
 
-Highly imbalanced → hanya 0.172% data yang fraud.
+Highly imbalanced dataset.
 
-Fitur:
+Features:
 
-V1 … V28 → hasil transformasi PCA.
+V1 … V28 → PCA-transformed features
 
-Time → detik sejak transaksi pertama.
+Time → seconds since the first transaction
 
-Amount → jumlah transaksi.
+Amount → transaction amount
 
-Class → label target (1 = fraud, 0 = normal).
+Class → target label (1 = fraud, 0 = non-fraud)
 
-⚠️ Karena imbalance, metrik AUPRC (Area Under Precision-Recall Curve) lebih bermakna dibanding akurasi biasa.
+⚠️ Because of the imbalance, AUPRC (Area Under Precision-Recall Curve) is more meaningful than accuracy.
 
-📐 Formula AUPRC
-AUPRC
-=
-∫
-0
-1
-𝑃
-𝑟
-𝑒
-𝑐
-𝑖
-𝑠
-𝑖
-𝑜
-𝑛
-(
-𝑅
-𝑒
-𝑐
-𝑎
-𝑙
-𝑙
-)
- 
-𝑑
-𝑅
-𝑒
-𝑐
-𝑎
-𝑙
-𝑙
-AUPRC=∫
-0
-1
-	​
+Formula AUPRC
 
-Precision(Recall)dRecall
+Continuous form:
 
-atau secara diskret (approx):
+AUPRC = ∫ Precision(Recall) dRecall
 
-AUPRC
-=
-∑
-𝑖
-=
-1
-𝑛
-−
-1
-(
-𝑅
-𝑒
-𝑐
-𝑎
-𝑙
-𝑙
-𝑖
-+
-1
-−
-𝑅
-𝑒
-𝑐
-𝑎
-𝑙
-𝑙
-𝑖
-)
-⋅
-𝑃
-𝑟
-𝑒
-𝑐
-𝑖
-𝑠
-𝑖
-𝑜
-𝑛
-𝑖
-+
-1
-AUPRC=
-i=1
-∑
-n−1
-	​
 
-(Recall
-i+1
-	​
+Discrete approximation:
 
-−Recall
-i
-	​
+AUPRC = Σ (Recall[i+1] - Recall[i]) * Precision[i+1]
 
-)⋅Precision
-i+1
-	​
+Modeling Approach
 
-🚀 Modeling Approach
+I tested ensemble gradient boosting models that are popular for imbalanced classification:
 
-Saya menggunakan ensemble gradient boosting models yang populer untuk imbalance classification:
+XGBoost → tree-based boosting, used scale_pos_weight to handle imbalance.
 
-XGBoost → tree-based boosting, menggunakan parameter scale_pos_weight untuk imbalance.
+CatBoost → boosting with class_weights, robust and easy to tune.
 
-CatBoost → boosting dengan class_weights, lebih robust dan easy-to-tune.
+Performance (Test Data)
+Model	AUPRC	Notes
+XGBoost	0.894	Best, high recall with balanced precision
+CatBoost	0.888	Almost similar, more stable
+Full Dataset Prediction (XGBoost GAN-trained model)
 
-📊 Performance (Test Data)
-Model	AUPRC	Catatan
-XGBoost	0.894	Terbaik, recall tinggi, balance precision.
-CatBoost	0.888	Hampir setara, lebih stabil.
-🧪 Full Dataset Prediction (XGBoost GAN-trained model)
-
-Evaluasi prediksi di seluruh dataset asli:
+Evaluation on the entire original dataset:
 
 Total samples : 283,718
 
-Correct preds : 283,698
+Correct predictions : 283,698
 
-Incorrect preds : 20
+Incorrect predictions : 20
 
 Accuracy : 0.9999
 
-📌 Confusion Matrix Breakdown
+Confusion Matrix Breakdown
 
-True Negatives (TN): 283,239 → transaksi normal terdeteksi benar.
+True Negatives (TN) : 283,239 → correctly classified non-fraud
 
-False Positives (FP): 6 → transaksi normal salah ditandai fraud.
+False Positives (FP) : 6 → normal transactions flagged as fraud
 
-False Negatives (FN): 14 → fraud lolos (kerugian potensial).
+False Negatives (FN) : 14 → fraud missed (potential financial loss)
 
-True Positives (TP): 459 → fraud berhasil ditangkap.
+True Positives (TP) : 459 → frauds correctly detected
 
-🏆 Insight & Business Impact
+Insights & Business Impact
 
-Dengan AUPRC hampir 0.90, model mampu menangkap mayoritas fraud meski dataset sangat imbalance.
+With AUPRC ≈ 0.90, the model detects the majority of frauds despite heavy imbalance.
 
-Dari 492 fraud asli, model berhasil mendeteksi 459 kasus → recall ~93%.
+Out of 492 actual frauds, 459 were caught → recall ≈ 93%.
 
-False positives hanya 6 kasus → artinya hanya sedikit customer terganggu.
+Only 6 false positives → minimal customer inconvenience.
 
-False negatives 14 kasus → ini adalah fokus perbaikan, karena setiap fraud yang lolos = potensi kerugian finansial.
+14 false negatives → focus for future improvement, since every missed fraud = potential financial loss.
 
-🎯 Kesimpulan
+Conclusion
 
-XGBoost outperform CatBoost tipis pada AUPRC (0.894 vs 0.888).
+XGBoost slightly outperformed CatBoost (0.894 vs 0.888 AUPRC).
 
-Akurasi tinggi tidak berarti di kasus imbalance, tapi breakdown confusion matrix menunjukkan model sangat efektif.
+Accuracy alone is misleading in imbalanced data, but confusion matrix shows the model is highly effective.
 
-Bisa dipakai sebagai fraud detection engine real-time untuk memblokir transaksi mencurigakan.
+The system can be deployed as a real-time fraud detection engine to block suspicious transactions.
