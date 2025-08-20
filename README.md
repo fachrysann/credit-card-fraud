@@ -42,7 +42,7 @@ I tested **ensemble gradient boosting models** that are popular for imbalanced c
 
 ---
 
-## Full Dataset Prediction (XGBoost GAN-trained model)
+## Full Dataset Prediction (XGBoost model)
 
 Evaluation on the entire original dataset:
 
@@ -70,4 +70,3 @@ Evaluation on the entire original dataset:
 ## Conclusion
 - **XGBoost slightly outperformed CatBoost** (0.894 vs 0.888 AUPRC).  
 - Accuracy alone is misleading in imbalanced data, but confusion matrix shows the model is highly effective.  
-- The system can be deployed as a **real-time fraud detection engine** to block suspicious transactions.  
