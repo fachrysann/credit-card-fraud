@@ -15,21 +15,11 @@ Because of the imbalance, **AUPRC (Area Under Precision-Recall Curve)** is more 
 
 ---
 
-## Formula AUPRC
-
-Continuous form:
-AUPRC = ∫ Precision(Recall) dRecall
-
-Discrete approximation:
-AUPRC = Σ (Recall[i+1] - Recall[i]) * Precision[i+1]
-
----
-
 ## Modeling Approach
 I tested **ensemble gradient boosting models** that are popular for imbalanced classification:  
 
 - **XGBoost** → tree-based boosting, used `scale_pos_weight` to handle imbalance.  
-- **CatBoost** → boosting with `class_weights`, robust and easy to tune.  
+- **CatBoost** → robust and easy to tune.  
 
 ---
 
